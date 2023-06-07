@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
     password: ['', Validators.required],
   });
 
+  error: string = '';
+
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -40,6 +42,8 @@ export class LoginComponent implements OnInit {
       (error) => {
         // Lógica de tratamento de erro de login
         console.error('Erro no login', error);
+        this.error =
+          'Dados incorretos. Por favor, revise seus dados e tente novamente.';
       }
     );
   }
