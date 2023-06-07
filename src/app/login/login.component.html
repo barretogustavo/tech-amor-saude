@@ -1,18 +1,18 @@
 <div class="flex justify-center items-center min-h-screen">
   <mat-card class="w-full md:w-96 p-6">
     <h1 class="text-2xl font-bold mb-4">Login</h1>
-    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Username</mat-label>
         <input matInput formControlName="username" placeholder="Username">
-        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Por favor, digite seu usuário (e-mail de cadastro)</mat-error>
+        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">Por favor, digite seu usuário (e-mail de cadastro)</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="w-full my-6">
+      <mat-form-field appearance="fill" class="w-full">
         <mat-label>Password</mat-label>
         <input matInput formControlName="password" type="password" placeholder="Password">
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Digite uma senha</mat-error>
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Digite uma senha</mat-error>
       </mat-form-field>
-      <div class="flex justify-end mt-4">
+      <div class="flex justify-end">
         <button mat-raised-button color="primary" type="submit">Login</button>
       </div>
     </form>

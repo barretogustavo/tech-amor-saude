@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth-service';
+import { Router } from '@angular/router';
+
+interface LoginResponse {
+  id: number;
+  username: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -7,35 +15,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm!: FormGroup;
+  loginForm: FormGroup = this.formBuilder.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
+  ngOnInit() {}
 
-  submitForm() {
-    if (this.loginForm.invalid) {
-      // cerifica se o formulário é inválido
-      return;
-    }
+  login() {
+    const { username, password } = this.loginForm.value;
 
-    const usernameControl = this.loginForm.get('username');
-    const passwordControl = this.loginForm.get('password');
-
-    if (usernameControl && passwordControl) {
-      const username = usernameControl.value;
-      const password = passwordControl.value;
-
-      // realizar a lógica de login
-      // serivço para autenticar o usuário
-
-      // limpa o formulário após o envio
-      this.loginForm.reset();
-    }
+    this.authService.login(username, password).subscribe(
+      (response: LoginResponse) => {
+        // Lógica de sucesso de login
+        console.log('Login bem-sucedido: ', response);
+        this.router.navigate(['/home']); // Redireciona para a página /home
+      },
+      (error) => {
+        // Lógica de tratamento de erro de login
+        console.error('Erro no login', error);
+      }
+    );
   }
 }
