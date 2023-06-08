@@ -1,17 +1,20 @@
 <div class="flex justify-center items-center min-h-screen">
   <mat-card class="w-full md:w-96 p-6">
     <h1 class="text-2xl font-bold mb-4">Login</h1>
-    <div *ngIf="error" class="my-1 text-red-500">{{ error }}</div>
+    <div *ngIf="submitted && error" class="my-1 text-red-500">{{ error }}</div> <!-- Exibe a mensagem de erro somente quando o formulário é submetido -->
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Username</mat-label>
         <input matInput formControlName="username" placeholder="Username">
-        <mat-error *ngIf="loginForm.controls['username'].hasError('required')">Por favor, digite seu usuário (e-mail de cadastro)</mat-error>
+        <mat-error *ngIf="submitted && loginForm.controls['username'].hasError('required')">Por favor, digite seu usuário (e-mail de cadastro)</mat-error> <!-- Exibe a mensagem de erro somente quando o formulário é submetido -->
       </mat-form-field>
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Password</mat-label>
-        <input matInput formControlName="password" type="password" placeholder="Password">
-        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">Digite uma senha</mat-error>
+        <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'" placeholder="Password">
+        <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()">
+          <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        <mat-error *ngIf="submitted && loginForm.controls['password'].hasError('required')">Digite uma senha</mat-error>
       </mat-form-field>
       <div class="flex justify-end">
         <button mat-raised-button color="primary" type="submit">Login</button>

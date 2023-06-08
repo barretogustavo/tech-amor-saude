@@ -2,9 +2,30 @@
   "users": [
     {
       "id": 1,
+      "name": "Gustavo Barreto",
       "username": "barreto",
       "password": "barreto123"
+    },
+    {
+      "id": 1,
+      "name": "Felipe Belarmino",
+      "username": "belarmino",
+      "password": "belarmino123"
     }
   ],
-  "auth": []
+  "auth": [],
+  "entity": [
+    {
+      "name": "Gustavo Barreto",
+      "region": "Brasil",
+      "specialty": "Desenvolvedor Front-end",
+      "isActive": true
+    },
+    {
+      "name": "Felipe Belarmino",
+      "region": "Brasil",
+      "specialty": "Desenvolvedor Back-end",
+      "isActive": false
+    }
+  ]
 }

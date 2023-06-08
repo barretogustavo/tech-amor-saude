@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth-service';
 import { Router } from '@angular/router';
+import { UserService } from 'src/services/user.service';
 
-interface LoginResponse {
+interface UserData {
   id: number;
+  name: string;
   username: string;
-  password: string;
 }
 
 @Component({
@@ -21,30 +22,52 @@ export class LoginComponent implements OnInit {
   });
 
   error: string = '';
+  submitted: boolean = false;
+  hidePassword: boolean = true;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private userService: UserService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.userService.isAuthenticated) {
+      this.router.navigate(['/home']);
+    }
+  }
 
   login() {
+    this.submitted = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
     const { username, password } = this.loginForm.value;
 
     this.authService.login(username, password).subscribe(
-      (response: LoginResponse) => {
-        // Lógica de sucesso de login
-        console.log('Login bem-sucedido: ', response);
-        this.router.navigate(['/home']); // Redireciona para a página /home
+      () => {
+        alert('Login bem-sucedido');
+
+        this.userService.setAuthenticated(true);
+        this.userService
+          .getUserDataByUsername(username)
+          .subscribe((userData: UserData) => {
+            this.userService.setUserData(userData);
+            this.router.navigate(['/home']);
+          });
       },
       (error) => {
-        // Lógica de tratamento de erro de login
         console.error('Erro no login', error);
         this.error =
           'Dados incorretos. Por favor, revise seus dados e tente novamente.';
       }
     );
+  }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
   }
 }
