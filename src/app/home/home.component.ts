@@ -1,12 +1,9 @@
+import { Store } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
-interface Entity {
-  name: string;
-  region: string;
-  specialty: string;
-  isActive: boolean;
-}
+import { Entity } from '../models';
+import { Router } from '@angular/router';
+import { StoreEntity } from '../state/entity/entity.state';
 
 @Component({
   selector: 'app-home',
@@ -19,10 +16,19 @@ export class HomeComponent implements OnInit {
   searchText: string = '';
   searchTimeout: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {
     this.fetchEntity();
+  }
+
+  storeEntityData(entity: Entity) {
+    this.store.dispatch(new StoreEntity(entity));
+    this.router.navigate(['/entity']);
   }
 
   fetchEntity = () => {
@@ -44,7 +50,7 @@ export class HomeComponent implements OnInit {
 
       this.http
         .get<Entity[]>(
-          `http://localhost:3000/entity?name_like=${this.searchText}`
+          `http://localhost:3000/entity?companyName_like=${this.searchText}`
         )
         .subscribe((data) => {
           this.filteredEntity = data;

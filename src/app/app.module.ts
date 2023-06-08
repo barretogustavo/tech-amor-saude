@@ -1,34 +1,44 @@
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './home/home.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserModule } from '@angular/platform-browser';
+import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EntityViewComponent } from './entity-view/entity-view.component';
+
+import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { NgxsModule } from '@ngxs/store';
+import { EntityState } from './state/entity/entity.state';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LoginComponent,
+    EntityViewComponent,
+  ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    FormsModule,
     RouterModule,
+    BrowserModule,
     MatCardModule,
-    MatFormFieldModule,
+    MatIconModule,
     MatInputModule,
     MatButtonModule,
-    ReactiveFormsModule,
     HttpClientModule,
-    MatIconModule,
-    FormsModule,
+    AppRoutingModule,
+    MatFormFieldModule,
     MatPaginatorModule,
+    ReactiveFormsModule,
+    NgxsModule.forRoot([EntityState]),
   ],
   providers: [],
   bootstrap: [AppComponent],

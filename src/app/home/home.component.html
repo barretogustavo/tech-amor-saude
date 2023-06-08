@@ -4,34 +4,38 @@
   </div>
   <div class="w-3/4 bg-white">
     <div class="p-6">
-      <div class="flex justify-between">
+      <div class="flex justify-between mb-10">
         <h1 class="text-2xl font-bold mb-4">Entidades</h1>
-        <button>opa</button>
+        <button mat-raised-button color="primary" routerLink="/home">Criar entidade</button>
       </div>
       <div class=" p-6 border-solid border-2 border-600 rounded-2xl">
         <mat-form-field appearance="fill" class="w-full rounded-2xl">
-          <mat-label>Pesquisar usuário</mat-label>
+          <mat-label>Pesquisar entidade</mat-label>
           <input matInput [(ngModel)]="searchText" (input)="searchUsers()">
           <mat-icon matPrefix class="mr-2 text-gray-400">search</mat-icon>
         </mat-form-field>
         <table class="table-auto w-full">
           <thead>
             <tr>
-              <th class="px-4 py-2">Nome</th>
-              <th class="px-4 py-2">Região</th>
-              <th class="px-4 py-2">Especialidade</th>
-              <th class="px-4 py-2">Ativa</th>
-              <th class="px-4 py-2">Ações</th>
+              <th class=" py-2 text-left">Nome</th>
+              <th class=" py-2 text-left">Região</th>
+              <th class=" py-2 text-left">Especialidades</th>
+              <th class=" py-2 text-left">Ativa</th>
+              <th class=" py-2 text-left">Ações</th>
             </tr>
           </thead>
           <tbody *ngIf="filteredEntity.length > 0; else noData">
             <tr *ngFor="let entityItem of filteredEntity">
-              <td class="border px-4 py-2">{{ entityItem.name }}</td>
+              <td class="border px-4 py-2">{{ entityItem.companyName }}</td>
               <td class="border px-4 py-2">{{ entityItem.region }}</td>
-              <td class="border px-4 py-2">{{ entityItem.specialty }}</td>
+              <td class="border px-4 py-2">
+                <ul *ngFor="let specialty of entityItem.specialties">
+                  {{ specialty }}
+                </ul>
+              </td>
               <td class="border px-4 py-2">{{ entityItem.isActive ? 'Sim' : 'Não' }}</td>
               <td class="border px-4 py-2">
-                <button mat-icon-button color="primary" aria-label="Detalhes">
+                <button mat-icon-button color="primary" aria-label="Detalhes" (click)="storeEntityData(entityItem)">
                   <mat-icon>visibility</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" aria-label="Editar">

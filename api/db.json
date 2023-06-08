@@ -7,7 +7,7 @@
       "password": "barreto123"
     },
     {
-      "id": 1,
+      "id": 2,
       "name": "Felipe Belarmino",
       "username": "belarmino",
       "password": "belarmino123"
@@ -16,15 +16,23 @@
   "auth": [],
   "entity": [
     {
-      "name": "Gustavo Barreto",
-      "region": "Brasil",
-      "specialty": "Desenvolvedor Front-end",
+      "id": 0,
+      "companyName": "AmorSaude Rio de Janeiro",
+      "corporateName": "AmorSaude RJ",
+      "cnpj": "50.212.139/0001-77",
+      "specialties": ["Ortopedia", "Cardiologia"],
+      "region": "Sudeste",
+      "openingDate": "19/06/2022",
       "isActive": true
     },
     {
-      "name": "Felipe Belarmino",
-      "region": "Brasil",
-      "specialty": "Desenvolvedor Back-end",
+      "id": 1,
+      "companyName": "AmorSaude Pinheiros",
+      "corporateName": "AmorSaude Pinheiros",
+      "cnpj": "50.212.139/0001-78",
+      "specialties": ["Clinica Geral", "Pediatria"],
+      "region": "Sudeste",
+      "openingDate": "18/06/2021",
       "isActive": false
     }
   ]
