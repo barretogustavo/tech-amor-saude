@@ -1,3 +1,9 @@
+export interface UserData {
+  id: number;
+  name: string;
+  username: string;
+}
+
 export interface Entity {
   id: number;
   companyName: string;

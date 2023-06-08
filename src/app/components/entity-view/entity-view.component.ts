@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Entity } from '../models';
-import { EntityState } from '../state/entity/entity.state';
+import { Entity } from '../../models';
+import { EntityState } from '../../state/entity/entity.state';
 
 @Component({
   selector: 'app-entity-view',

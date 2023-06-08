@@ -1,9 +1,9 @@
 import { Store } from '@ngxs/store';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Entity } from '../models';
 import { Router } from '@angular/router';
-import { StoreEntity } from '../state/entity/entity.state';
+import { Entity } from 'src/app/models';
+import { StoreEntity } from 'src/app/state/entity/entity.state';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     private http: HttpClient
   ) {}
 
+  // adicionar redirect para usuários não autenticados
   ngOnInit() {
     this.fetchEntity();
   }

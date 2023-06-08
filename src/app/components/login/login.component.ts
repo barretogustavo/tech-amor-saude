@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../auth/auth-service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/auth-service';
+import { UserData } from 'src/app/models';
 import { UserService } from 'src/services/user.service';
-
-interface UserData {
-  id: number;
-  name: string;
-  username: string;
-}
 
 @Component({
   selector: 'app-login',
