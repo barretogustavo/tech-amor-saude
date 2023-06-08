@@ -17,6 +17,7 @@ import { NgxsModule } from '@ngxs/store';
 import { EntityState } from './state/entity/entity.state';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { CreateEntityModule } from './components/create-entity/create-entity.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { LoginComponent } from './components/login/login.component';
     MatFormFieldModule,
     MatPaginatorModule,
     ReactiveFormsModule,
+    CreateEntityModule,
     NgxsModule.forRoot([EntityState]),
   ],
   providers: [],

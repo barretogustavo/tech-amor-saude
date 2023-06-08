@@ -1,0 +1,68 @@
+<div class="flex h-screen">
+  <div class="w-1/5 bg-gray-200">
+    <!-- Menu lateral -->
+  </div>
+  <div class="w-3/4 p-6 bg-white">
+    <div class="flex justify-start mb-10">
+      <h1 class="text-2xl font-bold mb-4">Criar entidade</h1>
+    </div>
+    <form (submit)="submitForm()" #entityForm="ngForm">
+      <div class="grid grid-cols-3 gap-4 mb-3">
+        <mat-form-field class="w-full">
+          <mat-label>Nome fantasia</mat-label>
+          <input matInput type="text" name="companyName" [(ngModel)]="entity.companyName" required>
+          <mat-error>O nome fantasia é obrigatório</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>Razão social</mat-label>
+          <input matInput type="text" name="corporateName" [(ngModel)]="entity.corporateName" required>
+          <mat-error>A razão social é obrigatória</mat-error>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <mat-label>CNPJ</mat-label>
+          <input matInput type="text" name="cnpj" [(ngModel)]="entity.cnpj" required>
+          <mat-error>O CNPJ é obrigatório</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-3">
+        <mat-form-field class="w-full">
+          <mat-label>Especialidades</mat-label>
+          <mat-select name="specialties" [(ngModel)]="entity.specialties" multiple required>
+            <mat-option *ngFor="let specialty of specialtiesList" [value]="specialty.label">{{ specialty.label
+              }}</mat-option>
+          </mat-select>
+          <mat-error>Selecione pelo menos uma especialidade</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Região</mat-label>
+          <mat-select name="region" [(ngModel)]="entity.region" required>
+            <mat-option *ngFor="let region of regionsList" [value]="region.label">{{ region.label }}</mat-option>
+          </mat-select>
+          <mat-error>Selecione uma região</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <mat-form-field class="w-full">
+          <mat-label>Data de inauguração</mat-label>
+          <input matInput [matDatepicker]="picker" name="openingDate" [(ngModel)]="entity.openingDate" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error>A data de inauguração é obrigatória</mat-error>
+        </mat-form-field>
+        <div class="flex items-center">
+          <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+            id="isActive" [(ngModel)]="entity.isActive">
+          <label for="isActive" class="ml-2">Ativa</label>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-4">
+        <button mat-raised-button color="secondary" type="button" class="mr-6" routerLink="/home">Cancelar</button>
+        <button mat-raised-button color="primary" [disabled]="!isFormValid()" type="submit">Salvar</button>
+      </div>
+    </form>
+  </div>
+</div>

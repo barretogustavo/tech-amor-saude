@@ -14,3 +14,8 @@ export interface Entity {
   openingDate: string;
   isActive: boolean;
 }
+
+export interface SelectItem {
+  value: number;
+  label: string;
+}
