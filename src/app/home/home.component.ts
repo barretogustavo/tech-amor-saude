@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  MatPaginator,
-  MatPaginatorIntl,
-  PageEvent,
-} from '@angular/material/paginator';
+import { Component, OnInit } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 interface Entity {
   name: string;
@@ -19,8 +15,6 @@ interface Entity {
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
   entity: Entity[] = [];
   filteredEntity: Entity[] = [];
   searchText: string = '';
@@ -32,23 +26,16 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.paginator.page.subscribe((pageEvent: PageEvent) => {
-      this.fetchEntity(pageEvent);
-    });
+    this.fetchEntity();
+    this.paginatorIntl.itemsPerPageLabel = 'Itens por página:';
+    this.paginatorIntl.nextPageLabel = 'Próxima página';
+    this.paginatorIntl.previousPageLabel = 'Página anterior';
+    this.paginatorIntl.getRangeLabel = this.customRangeLabel;
   }
 
-  fetchEntity = (pageEvent: PageEvent) => {
-    const pageIndex = pageEvent.pageIndex;
-    const pageSize = pageEvent.pageSize;
-
+  fetchEntity = () => {
     this.http
-      .get<Entity[]>('http://localhost:3000/entity', {
-        params: {
-          _limit: pageSize.toString(),
-          _page: (pageIndex + 1).toString(),
-          name_like: this.searchText,
-        },
-      })
+      .get<Entity[]>('http://localhost:3000/entity')
       .subscribe((data) => {
         this.entity = data;
         this.filteredEntity = data;
@@ -71,5 +58,18 @@ export class HomeComponent implements OnInit {
           this.filteredEntity = data;
         });
     }, 300);
+  };
+
+  customRangeLabel = (page: number, pageSize: number, length: number) => {
+    if (length === 0 || pageSize === 0) {
+      return `0 de ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex =
+      startIndex < length
+        ? Math.min(startIndex + pageSize, length)
+        : startIndex + pageSize;
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
   };
 }
