@@ -47,7 +47,12 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
       () => {
-        alert('Login bem-sucedido');
+        this.snackBar.openFromComponent(ToastComponent, {
+          duration: 3000,
+          data: {
+            message: `Logado com sucesso!.`,
+          },
+        });
 
         this.userService.setAuthenticated(true);
         this.userService
@@ -58,7 +63,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home']);
           });
       },
-      (error) => {
+      () => {
         this.snackBar.openFromComponent(ToastComponent, {
           duration: 3000,
           data: {
