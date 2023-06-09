@@ -11,6 +11,11 @@ export class ClearEntity {
   static readonly type = '[Entity] Clear';
 }
 
+export class UpdateEntity {
+  static readonly type = '[Entity] Update';
+  constructor(public payload: Entity) {}
+}
+
 @State<Entity | null>({
   name: 'entity',
   defaults: null,
@@ -30,5 +35,13 @@ export class EntityState {
   @Action(ClearEntity)
   clearEntity(ctx: StateContext<Entity | null>) {
     ctx.setState(null);
+  }
+
+  @Action(UpdateEntity)
+  updateEntity(ctx: StateContext<Entity | null>, { payload }: UpdateEntity) {
+    const state = ctx.getState();
+    if (state !== null && state.id === payload.id) {
+      ctx.setState(payload);
+    }
   }
 }

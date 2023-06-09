@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
           .getUserDataByUsername(username)
           .subscribe((userData: UserData) => {
             this.userService.setUserData(userData);
+            localStorage.setItem('userData', JSON.stringify(userData));
             this.router.navigate(['/home']);
           });
       },

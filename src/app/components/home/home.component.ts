@@ -22,26 +22,30 @@ export class HomeComponent implements OnInit {
     private http: HttpClient
   ) {}
 
-  // adicionar redirect para usuários não autenticados
   ngOnInit() {
     this.fetchEntity();
   }
 
   storeEntityData(entity: Entity) {
     this.store.dispatch(new StoreEntity(entity));
-    this.router.navigate(['/entity']);
+    this.router.navigate([`/entity/${entity.id}`]);
   }
 
-  fetchEntity = () => {
+  onEditEntity(entity: Entity) {
+    this.store.dispatch(new StoreEntity(entity));
+    this.router.navigate(['/edit']);
+  }
+
+  fetchEntity() {
     this.http
       .get<Entity[]>('http://localhost:3000/entity')
       .subscribe((data) => {
         this.entity = data;
         this.filteredEntity = data;
       });
-  };
+  }
 
-  searchUsers = () => {
+  searchUsers() {
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
       if (this.searchText === '') {
@@ -57,5 +61,5 @@ export class HomeComponent implements OnInit {
           this.filteredEntity = data;
         });
     }, 300);
-  };
+  }
 }

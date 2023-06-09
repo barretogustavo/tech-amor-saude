@@ -4,7 +4,7 @@
   </div>
   <div class="w-3/4 p-6 bg-white">
     <div class="flex justify-start mb-10">
-      <h1 class="text-2xl font-bold mb-4">Criar entidade</h1>
+      <h1 class="text-2xl font-bold mb-4">{{ isEditMode ? 'Editar' : 'Criar' }} entidade</h1>
     </div>
     <form (submit)="submitForm()" #entityForm="ngForm">
       <div class="grid grid-cols-3 gap-4 mb-3">
@@ -20,7 +20,7 @@
         </mat-form-field>
         <mat-form-field class="w-full">
           <mat-label>CNPJ</mat-label>
-          <input matInput type="text" name="cnpj" [(ngModel)]="entity.cnpj" required>
+          <input matInput type="text" name="cnpj" [(ngModel)]="entity.cnpj" (input)="formatCnpj()" maxlength="18">
           <mat-error>O CNPJ é obrigatório</mat-error>
         </mat-form-field>
       </div>
@@ -53,15 +53,19 @@
           <mat-error>A data de inauguração é obrigatória</mat-error>
         </mat-form-field>
         <div class="flex items-center">
-          <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-            id="isActive" [(ngModel)]="entity.isActive">
-          <label for="isActive" class="ml-2">Ativa</label>
+          <input type="checkbox" name="isActive"
+            class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" id="isActive"
+            [(ngModel)]="entity.isActive">
+          <label for="isActive" class="ml-2">Marque está caixa caso a entidade esteja ativa</label>
         </div>
       </div>
 
       <div class="flex justify-end mt-4">
         <button mat-raised-button color="secondary" type="button" class="mr-6" routerLink="/home">Cancelar</button>
-        <button mat-raised-button color="primary" [disabled]="!isFormValid()" type="submit">Salvar</button>
+        <button mat-raised-button color="primary" type="submit">
+          {{ isEditMode ? 'Atualizar' : 'Criar' }}
+        </button>
+
       </div>
     </form>
   </div>
