@@ -3,8 +3,10 @@
     <app-menu></app-menu>
   </div>
   <div class="w-3/4 p-6 bg-white">
-    <div class="flex justify-start mb-10">
+    <div class="flex justify-between mb-10">
       <h1 class="text-2xl font-bold mb-4">{{ isEditMode ? 'Editar' : 'Criar' }} entidade</h1>
+      <button mat-raised-button color="warn" routerLink="/create" *ngIf="isEditMode"
+        (click)="deleteEntity(entity.id)">Excluir</button>
     </div>
     <form (submit)="submitForm()" #entityForm="ngForm">
       <div class="grid grid-cols-3 gap-4 mb-3">

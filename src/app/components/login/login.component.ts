@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth-service';
 import { UserData } from 'src/app/models';
 import { UserService } from 'src/services/user.service';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService
@@ -56,7 +59,12 @@ export class LoginComponent implements OnInit {
           });
       },
       (error) => {
-        console.error('Erro no login', error);
+        this.snackBar.openFromComponent(ToastComponent, {
+          duration: 3000,
+          data: {
+            message: `Ocorreu um erro ao tentar logar.`,
+          },
+        });
         this.error =
           'Dados incorretos. Por favor, revise seus dados e tente novamente.';
       }

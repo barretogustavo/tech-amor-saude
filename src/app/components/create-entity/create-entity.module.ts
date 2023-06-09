@@ -15,6 +15,7 @@ import { CreateEntityComponent } from './create-entity.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenuModule } from '../menu/menu.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [CreateEntityComponent],
@@ -25,6 +26,7 @@ import { MenuModule } from '../menu/menu.module';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
+    MatSnackBarModule,
     MatFormFieldModule,
     MatNativeDateModule,
     ReactiveFormsModule,

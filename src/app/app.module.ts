@@ -20,12 +20,14 @@ import { LoginComponent } from './components/login/login.component';
 import { CreateEntityModule } from './components/create-entity/create-entity.module';
 import { MenuComponent } from './components/menu/menu.component';
 import { MenuModule } from './components/menu/menu.module';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
+    ToastComponent,
     EntityViewComponent,
   ],
   imports: [

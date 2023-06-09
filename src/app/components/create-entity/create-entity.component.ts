@@ -9,6 +9,8 @@ import {
   UpdateEntity,
   EntityState,
 } from 'src/app/state/entity/entity.state';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-create-entity',
@@ -35,7 +37,8 @@ export class CreateEntityComponent {
     private store: Store,
     private router: Router,
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -86,26 +89,69 @@ export class CreateEntityComponent {
             () => {
               this.store.dispatch(new UpdateEntity(this.entity));
               this.router.navigate(['/entity']);
+              this.snackBar.openFromComponent(ToastComponent, {
+                duration: 3000,
+                data: { message: 'Entidade atualizada com sucesso!' },
+              });
             },
             (error) => {
-              console.error('Erro ao atualizar a entidade:', error);
+              this.snackBar.openFromComponent(ToastComponent, {
+                duration: 3000,
+                data: {
+                  message: 'Erro ao tentar atualizar a entidade: ',
+                },
+              });
             }
           );
       } else {
         this.http.post('http://localhost:3000/entity', this.entity).subscribe(
           () => {
+            this.snackBar.openFromComponent(ToastComponent, {
+              duration: 3000,
+              data: { message: 'Entidade criada com sucesso!' },
+            });
             this.store.dispatch(new StoreEntity(this.entity));
             this.router.navigate(['/entity']);
           },
           (error) => {
-            console.error('Erro ao criar a entidade:', error);
+            this.snackBar.openFromComponent(ToastComponent, {
+              duration: 3000,
+              data: {
+                message: 'Erro ao tentar criar a entidade: ',
+              },
+            });
           }
         );
       }
     } else {
-      console.error(
-        'Formulário inválido. Preencha todos os campos obrigatórios.'
-      );
+      this.snackBar.openFromComponent(ToastComponent, {
+        duration: 3000,
+        data: {
+          message: 'Formulário inválido. Preencha todos os campos.',
+        },
+      });
     }
+  }
+
+  deleteEntity(id: number) {
+    this.http.delete(`http://localhost:3000/entity/${id}`).subscribe(
+      () => {
+        this.router.navigate(['/home']);
+        this.snackBar.openFromComponent(ToastComponent, {
+          duration: 3000,
+          data: {
+            message: 'Entidade excluída com sucesso!',
+          },
+        });
+      },
+      (error) => {
+        this.snackBar.openFromComponent(ToastComponent, {
+          duration: 3000,
+          data: {
+            message: 'Erro ao tentar excluir a entidade: ',
+          },
+        });
+      }
+    );
   }
 }
