@@ -18,6 +18,8 @@ import { EntityState } from './state/entity/entity.state';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateEntityModule } from './components/create-entity/create-entity.module';
+import { MenuComponent } from './components/menu/menu.component';
+import { MenuModule } from './components/menu/menu.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { CreateEntityModule } from './components/create-entity/create-entity.mod
     EntityViewComponent,
   ],
   imports: [
+    MenuModule,
     FormsModule,
     RouterModule,
     BrowserModule,

@@ -1,0 +1,29 @@
+<mat-nav-list class="flex flex-col items-center h-screen">
+  <div class="ml-4 mt-4 mb-8">
+    <img src="https://www.amorsaude.com.br/wp-content/themes/amorsaude/assets/images/amorsaude-logo.svg" alt="Logo"
+      class="h-12">
+  </div>
+
+  <a mat-list-item routerLink="/home" routerLinkActive="active">
+    <div class="flex align-middle">
+      <mat-icon mat-list-icon color="primary">home</mat-icon>
+      <li mat-line class="mt-0.5 ml-1 text-blue-700">Início</li>
+    </div>
+  </a>
+
+  <a mat-list-item routerLink="/create" routerLinkActive="active">
+    <div class="flex align-middle">
+      <mat-icon mat-list-icon color="primary">add</mat-icon>
+      <li mat-line class="mt-0.5 ml-1 text-blue-700">Nova entidade</li>
+    </div>
+  </a>
+
+  <div class="h-4/6 flex flex-col justify-end">
+    <a mat-list-item (click)="logout()">
+      <div class="flex align-middle">
+        <mat-icon mat-list-icon color="warn">exit_to_app</mat-icon>
+        <li mat-line class="mt-0.5 ml-1 text-red-600">Sair</li>
+      </div>
+    </a>
+  </div>
+</mat-nav-list>

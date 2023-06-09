@@ -23,7 +23,7 @@ export class UserService {
     return this.isAuthenticated;
   }
 
-  setUserData(data: UserData) {
+  setUserData(data: UserData | null) {
     this.userData = data;
   }
 

@@ -14,10 +14,12 @@ import { RouterModule } from '@angular/router';
 import { CreateEntityComponent } from './create-entity.component';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuModule } from '../menu/menu.module';
 
 @NgModule({
   declarations: [CreateEntityComponent],
   imports: [
+    MenuModule,
     FormsModule,
     CommonModule,
     MatInputModule,
