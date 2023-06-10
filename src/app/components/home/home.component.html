@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-bold mb-4">Entidades</h1>
         <button mat-raised-button color="primary" routerLink="/create">Criar entidade</button>
       </div>
-      <div class=" p-6 border-solid border-2 border-600 rounded-2xl">
+      <div class="p-6 border-solid border-2 border-600 rounded-2xl">
         <mat-form-field appearance="fill" class="w-full rounded-2xl">
           <mat-label>Pesquisar entidade</mat-label>
           <input matInput [(ngModel)]="searchText" (input)="searchUsers()">
@@ -17,11 +17,31 @@
         <table class="table-auto w-full">
           <thead>
             <tr>
-              <th class=" py-2 text-left">Nome</th>
-              <th class=" py-2 text-left">Região</th>
-              <th class=" py-2 text-left">Especialidades</th>
-              <th class=" py-2 text-left">Ativa</th>
-              <th class=" py-2 text-left">Ações</th>
+              <th class="py-2 text-left cursor-pointer flex align-middle" (click)="onColumnHeaderClick('companyName')">
+                Nome
+                <mat-icon class="ml-1 -mb-2 text-sm" *ngIf="sortColumn === 'companyName'">
+                  {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+                </mat-icon>
+              </th>
+              <th class="py-2 text-left cursor-pointer" (click)="onColumnHeaderClick('region')">
+                Região
+                <mat-icon class="ml-1 -mb-2 text-sm" *ngIf="sortColumn === 'region'">
+                  {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+                </mat-icon>
+              </th>
+              <th class="py-2 text-left cursor-pointer" (click)="onColumnHeaderClick('specialties')">
+                Especialidades
+                <mat-icon class="ml-1 -mb-2 text-sm" *ngIf="sortColumn === 'specialties'">
+                  {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+                </mat-icon>
+              </th>
+              <th class="py-2 text-left cursor-pointer" (click)="onColumnHeaderClick('isActive')">
+                Ativa
+                <mat-icon class="ml-1 -mb-2 text-sm" *ngIf="sortColumn === 'isActive'">
+                  {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
+                </mat-icon>
+              </th>
+              <th class="py-2 text-left">Ações</th>
             </tr>
           </thead>
           <tbody *ngIf="filteredEntity.length > 0; else noData">
@@ -51,6 +71,8 @@
           </tr>
         </ng-template>
       </div>
+      <mat-paginator [length]="totalEntities" [pageSize]="entitiesPerPage" [pageIndex]="currentPage - 1"
+        [pageSizeOptions]="[4, 8, 12]" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
     </div>
   </div>
 </div>
