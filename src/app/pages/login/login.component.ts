@@ -3,9 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth-service';
+import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { UserData } from 'src/app/models';
 import { UserService } from 'src/services/user.service';
-import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-login',

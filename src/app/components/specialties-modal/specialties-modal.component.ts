@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Entity } from '../models';
+import { Entity } from 'src/app/models';
 
 @Component({
   selector: 'app-specialties-modal',

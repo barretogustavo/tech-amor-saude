@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { SpecialtiesModalComponent } from 'src/app/specialties-modal/specialties-modal.component';
+import { SpecialtiesModalComponent } from 'src/app/components/specialties-modal/specialties-modal.component';
 
 @Component({
   selector: 'app-entity-view',

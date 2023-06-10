@@ -5,8 +5,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Entity } from 'src/app/models';
 import { StoreEntity } from 'src/app/state/entity/entity.state';
 import { PageEvent } from '@angular/material/paginator';
-import { SpecialtiesModalComponent } from 'src/app/specialties-modal/specialties-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SpecialtiesModalComponent } from 'src/app/components/specialties-modal/specialties-modal.component';
 
 @Component({
   selector: 'app-home',

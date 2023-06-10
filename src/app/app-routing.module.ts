@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { EntityViewComponent } from './components/entity-view/entity-view.component';
-import { CreateEntityComponent } from './components/create-entity/create-entity.component';
+import { HomeComponent } from './pages/home/home.component';
 import { AuthGuard } from '../services/guards/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
+import { CreateEntityComponent } from './pages/create-entity/create-entity.component';
+import { EntityViewComponent } from './pages/entity-view/entity-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },

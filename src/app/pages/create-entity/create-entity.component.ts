@@ -9,9 +9,9 @@ import {
   EntityState,
 } from 'src/app/state/entity/entity.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ToastComponent } from '../toast/toast.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
+import { ToastComponent } from 'src/app/components/toast/toast.component';
+import { ConfirmationModalComponent } from 'src/app/components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-create-entity',
