@@ -12,17 +12,16 @@ import { SpecialtiesModalComponent } from 'src/app/specialties-modal/specialties
 @Component({
   selector: 'app-entity-view',
   templateUrl: './entity-view.component.html',
-  styleUrls: ['./entity-view.component.css'],
 })
 export class EntityViewComponent implements OnInit {
   @Select(EntityState.getEntity) entity$!: Observable<Entity | null>;
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private store: Store,
+    private router: Router,
     private http: HttpClient,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {

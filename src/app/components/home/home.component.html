@@ -1,22 +1,20 @@
-<div class="flex h-screen">
-  <div class="w-1/5 bg-gray-100">
-    <app-menu></app-menu>
-  </div>
-  <div class="w-3/4 bg-white">
-    <div class="p-6">
-      <div class="flex justify-between mb-10">
-        <h1 class="text-2xl font-bold mb-4">Entidades</h1>
-        <button mat-raised-button color="primary" routerLink="/create">Criar entidade</button>
-      </div>
-      <div class="p-6 border-solid border-2 border-600 rounded-2xl">
-        <mat-form-field appearance="fill" class="w-full rounded-2xl">
-          <mat-label>Pesquisar entidade</mat-label>
-          <input matInput [(ngModel)]="searchText" (input)="searchUsers()">
-          <button mat-icon-button matSuffix *ngIf="searchText" (click)="clearSearch()">
-            <mat-icon>close</mat-icon>
-          </button>
-          <mat-icon matPrefix class="mr-2 text-gray-400">search</mat-icon>
-        </mat-form-field>
+<app-menu></app-menu>
+<div class="flex-grow bg-white">
+  <div class="p-6">
+    <div class="flex flex-col md:flex-row justify-between mb-10">
+      <h1 class="text-2xl font-bold mb-4">Entidades</h1>
+      <button mat-raised-button color="primary" routerLink="/create">Criar entidade</button>
+    </div>
+    <div class="p-6 border-solid border-2 border-600 rounded-2xl">
+      <mat-form-field appearance="fill" class="w-full rounded-2xl mb-4">
+        <mat-label>Pesquisar entidade</mat-label>
+        <input matInput [(ngModel)]="searchText" (input)="searchUsers()">
+        <button mat-icon-button matSuffix *ngIf="searchText" (click)="clearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-icon matPrefix class="mr-2 text-gray-400">search</mat-icon>
+      </mat-form-field>
+      <div class="overflow-x-auto">
         <table class="table-auto w-full">
           <thead>
             <tr>
@@ -55,7 +53,8 @@
                 <ul>
                   {{ getFormattedSpecialties(entityItem.specialties) }}<a *ngIf="entityItem.specialties.length > 5"
                     (click)="openSpecialtiesModal(entityItem.specialties)"
-                    class="text-blue-700 cursor-pointer font-semibold">... + Ver mais</a>
+                    class="text-blue-700 cursor-pointer font-semibold">...
+                    + Ver mais</a>
                 </ul>
               </td>
               <td class="border px-4 py-2">{{ entityItem.isActive ? 'Sim' : 'Não' }}</td>
@@ -70,14 +69,14 @@
             </tr>
           </tbody>
         </table>
-        <ng-template #noData>
-          <tr>
-            <td class="text-center py-4" colspan="5">Não foram encontrados resultados</td>
-          </tr>
-        </ng-template>
       </div>
-      <mat-paginator [length]="totalEntities" [pageSize]="entitiesPerPage" [pageIndex]="currentPage - 1"
-        [pageSizeOptions]="[4, 8, 12]" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+      <ng-template #noData>
+        <tr>
+          <td class="text-center py-4" colspan="5">Não foram encontrados resultados</td>
+        </tr>
+      </ng-template>
     </div>
+    <mat-paginator [length]="totalEntities" [pageSize]="entitiesPerPage" [pageIndex]="currentPage - 1"
+      [pageSizeOptions]="[4, 8, 12]" (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
   </div>
 </div>

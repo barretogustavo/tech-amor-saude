@@ -10,11 +10,12 @@ import {
 } from 'src/app/state/entity/entity.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastComponent } from '../toast/toast.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from '../confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
-  styleUrls: ['./create-entity.component.css'],
 })
 export class CreateEntityComponent {
   entity: Entity = {
@@ -36,6 +37,7 @@ export class CreateEntityComponent {
     private store: Store,
     private router: Router,
     private http: HttpClient,
+    private dialog: MatDialog,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
   ) {}
@@ -153,16 +155,29 @@ export class CreateEntityComponent {
     }
   }
 
+  openConfirmationModal(id: number, event: Event) {
+    event.stopPropagation();
+
+    const dialogRef = this.dialog.open(ConfirmationModalComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteEntity(id);
+      }
+    });
+  }
+
   deleteEntity(id: number) {
     this.http.delete(`http://localhost:3000/entity/${id}`).subscribe(
       () => {
-        this.router.navigate(['/home']);
         this.snackBar.openFromComponent(ToastComponent, {
           duration: 3000,
           data: {
             message: 'Entidade excluída com sucesso!',
           },
         });
+
+        this.router.navigate(['/home']);
       },
       (error) => {
         this.snackBar.openFromComponent(ToastComponent, {

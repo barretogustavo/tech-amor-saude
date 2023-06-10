@@ -1,49 +1,45 @@
-<div class="flex h-screen">
-  <div class="w-1/5 bg-gray-100">
-    <app-menu></app-menu>
-  </div>
-  <div class="w-3/4 bg-white">
-    <div class="p-6">
-      <div class="flex justify-between mb-10">
-        <h1 class="text-2xl font-bold mb-4">Visualizar entidade</h1>
-        <button mat-raised-button color="primary" routerLink="/edit">Editar entidade</button>
+<app-menu></app-menu>
+<div class="w-full bg-white">
+  <div class="p-6">
+    <div class="flex flex-col md:flex-row justify-between mb-10">
+      <h1 class="text-2xl font-bold mb-4">Visualizar entidade</h1>
+      <button mat-raised-button color="primary" routerLink="/edit">Editar entidade</button>
+    </div>
+    <div class="p-6 border-solid border-2 border-600 rounded-2xl">
+      <div *ngIf="(entity$ | async) as entity" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <strong>Nome fantasia:</strong>
+          <p>{{ entity?.companyName }}</p>
+        </div>
+        <div>
+          <strong>Razão social:</strong>
+          <p>{{ entity?.corporateName }}</p>
+        </div>
+        <div>
+          <strong>CNPJ:</strong>
+          <p>{{ entity?.cnpj }}</p>
+        </div>
+        <div>
+          <strong>Especialidades:</strong>
+          <p>{{ getFormattedSpecialties(entity.specialties) }}</p>
+          <button *ngIf="entity.specialties.length > 5" (click)="openSpecialtiesModal()"
+            class="text-blue-700 cursor-pointer font-semibold p-0">Ver mais</button>
+        </div>
+        <div>
+          <strong>Região:</strong>
+          <p>{{ entity?.region }}</p>
+        </div>
+        <div>
+          <strong>Data de inauguração:</strong>
+          <p>{{ entity.openingDate }}</p>
+        </div>
+        <div>
+          <strong>Ativo:</strong>
+          <p>{{ entity?.isActive ? 'Sim' : 'Não' }}</p>
+        </div>
       </div>
-      <div class=" p-6 border-solid border-2 border-600 rounded-2xl">
-        <div *ngIf="(entity$ | async) as entity" class="grid grid-cols-2 gap-4">
-          <div>
-            <strong>Nome fantasia:</strong>
-            <p>{{ entity?.companyName }}</p>
-          </div>
-          <div>
-            <strong>Razão social:</strong>
-            <p>{{ entity?.corporateName }}</p>
-          </div>
-          <div>
-            <strong>CNPJ:</strong>
-            <p>{{ entity?.cnpj }}</p>
-          </div>
-          <div>
-            <strong>Especialidades:</strong>
-            <p>{{ getFormattedSpecialties(entity.specialties) }} </p>
-            <button *ngIf="entity.specialties.length > 5" (click)="openSpecialtiesModal()"
-              class="text-blue-700 cursor-pointer font-semibold p-0">Ver mais</button>
-          </div>
-          <div>
-            <strong>Região:</strong>
-            <p>{{ entity?.region }}</p>
-          </div>
-          <div>
-            <strong>Data de inauguração:</strong>
-            <p>{{ entity.openingDate }}</p>
-          </div>
-          <div>
-            <strong>Ativo:</strong>
-            <p>{{ entity?.isActive ? 'Sim' : 'Não' }}</p>
-          </div>
-        </div>
-        <div class="flex justify-end">
-          <button mat-raised-button color="primary" routerLink="/home">Voltar</button>
-        </div>
+      <div class="flex justify-end mt-4">
+        <button mat-raised-button color="primary" routerLink="/home">Voltar</button>
       </div>
     </div>
   </div>

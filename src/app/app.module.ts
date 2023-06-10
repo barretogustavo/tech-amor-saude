@@ -22,6 +22,7 @@ import { MenuModule } from './components/menu/menu.module';
 import { ToastComponent } from './components/toast/toast.component';
 import { SpecialtiesModalComponent } from './specialties-modal/specialties-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ToastComponent,
     EntityViewComponent,
     SpecialtiesModalComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     MenuModule,

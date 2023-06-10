@@ -5,7 +5,6 @@ import { UserService } from 'src/services/user.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
 })
 export class MenuComponent {
   constructor(private router: Router, private userService: UserService) {}
