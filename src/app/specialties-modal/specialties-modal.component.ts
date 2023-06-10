@@ -5,7 +5,6 @@ import { Entity } from '../models';
 @Component({
   selector: 'app-specialties-modal',
   templateUrl: './specialties-modal.component.html',
-  styleUrls: ['./specialties-modal.component.css'],
 })
 export class SpecialtiesModalComponent {
   otherSpecialties: string[];

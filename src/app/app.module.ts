@@ -1,55 +1,30 @@
+import { EntityState } from './state/entity/entity.state';
+
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
+import { NgxsModule } from '@ngxs/store';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { BrowserModule } from '@angular/platform-browser';
-import { MatButtonModule } from '@angular/material/button';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EntityViewComponent } from './components/entity-view/entity-view.component';
+import { MenuModule } from './components/menu/menu.module';
+import { HomeModule } from './components/home/home.module';
+import { LoginModule } from './components/login/login.module';
+import { EntityViewModule } from './components/entity-view/entity-view.module';
+import { CreateEntityModule } from './components/create-entity/create-entity.module';
+import { SpecialtiesModalModule } from './specialties-modal/specialties-modal.module';
+import { ConfirmationModalModule } from './components/confirmation-modal/confirmation-modal.module';
 
 import { AppComponent } from './app.component';
-import { NgxsModule } from '@ngxs/store';
-import { EntityState } from './state/entity/entity.state';
-import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
-import { CreateEntityModule } from './components/create-entity/create-entity.module';
-import { MenuModule } from './components/menu/menu.module';
 import { ToastComponent } from './components/toast/toast.component';
-import { SpecialtiesModalComponent } from './specialties-modal/specialties-modal.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    ToastComponent,
-    EntityViewComponent,
-    SpecialtiesModalComponent,
-    ConfirmationModalComponent,
-  ],
+  declarations: [AppComponent, ToastComponent],
   imports: [
     MenuModule,
-    FormsModule,
-    RouterModule,
-    BrowserModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    HttpClientModule,
+    HomeModule,
+    LoginModule,
+    EntityViewModule,
     AppRoutingModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    ReactiveFormsModule,
     CreateEntityModule,
+    SpecialtiesModalModule,
+    ConfirmationModalModule,
     NgxsModule.forRoot([EntityState]),
   ],
   providers: [],
