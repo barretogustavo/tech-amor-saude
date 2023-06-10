@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { regionsList, specialtiesList } from 'src/app/helpers';
 import { Entity } from 'src/app/models';
@@ -69,60 +69,56 @@ export class CreateEntityComponent {
   }
 
   isFormValid(): boolean {
-    if (
-      !this.entity.cnpj ||
-      !this.entity.openingDate ||
-      !this.entity.companyName ||
-      !this.entity.corporateName
-    ) {
-      return false;
-    }
-    return true;
+    const { cnpj, openingDate, companyName, corporateName, specialties } =
+      this.entity;
+
+    return !!(
+      cnpj &&
+      openingDate &&
+      companyName &&
+      corporateName &&
+      specialties.length >= 5
+    );
   }
 
   submitForm() {
     if (this.isFormValid()) {
-      if (this.isEditMode) {
-        this.http
-          .put('http://localhost:3000/entity/' + this.entity.id, this.entity)
-          .subscribe(
-            () => {
-              this.store.dispatch(new UpdateEntity(this.entity));
-              this.router.navigate(['/entity']);
-              this.snackBar.openFromComponent(ToastComponent, {
-                duration: 3000,
-                data: { message: 'Entidade atualizada com sucesso!' },
-              });
-            },
-            (error) => {
-              this.snackBar.openFromComponent(ToastComponent, {
-                duration: 3000,
-                data: {
-                  message: 'Erro ao tentar atualizar a entidade: ',
-                },
-              });
-            }
-          );
-      } else {
-        this.http.post('http://localhost:3000/entity', this.entity).subscribe(
+      const url = this.isEditMode
+        ? `http://localhost:3000/entity/${this.entity.id}`
+        : 'http://localhost:3000/entity';
+
+      this.http
+        .request(this.isEditMode ? 'PUT' : 'POST', url, { body: this.entity })
+        .subscribe(
           () => {
+            const message = this.isEditMode
+              ? 'Entidade atualizada com sucesso!'
+              : 'Entidade criada com sucesso!';
+
             this.snackBar.openFromComponent(ToastComponent, {
               duration: 3000,
-              data: { message: 'Entidade criada com sucesso!' },
+              data: { message },
             });
-            this.store.dispatch(new StoreEntity(this.entity));
+
+            if (this.isEditMode) {
+              this.store.dispatch(new UpdateEntity(this.entity));
+            } else {
+              this.store.dispatch(new StoreEntity(this.entity));
+            }
+
             this.router.navigate(['/entity']);
           },
           (error) => {
+            const errorMessage = this.isEditMode
+              ? 'Erro ao tentar atualizar a entidade'
+              : 'Erro ao tentar criar a entidade';
+
             this.snackBar.openFromComponent(ToastComponent, {
               duration: 3000,
-              data: {
-                message: 'Erro ao tentar criar a entidade: ',
-              },
+              data: { message: `${errorMessage}: ${error.message}` },
             });
           }
         );
-      }
     } else {
       this.snackBar.openFromComponent(ToastComponent, {
         duration: 3000,
@@ -148,7 +144,7 @@ export class CreateEntityComponent {
         this.snackBar.openFromComponent(ToastComponent, {
           duration: 3000,
           data: {
-            message: 'Erro ao tentar excluir a entidade: ',
+            message: `Erro ao tentar excluir a entidade: ${error.message}`,
           },
         });
       }

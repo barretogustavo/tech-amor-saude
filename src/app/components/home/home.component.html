@@ -12,6 +12,9 @@
         <mat-form-field appearance="fill" class="w-full rounded-2xl">
           <mat-label>Pesquisar entidade</mat-label>
           <input matInput [(ngModel)]="searchText" (input)="searchUsers()">
+          <button mat-icon-button matSuffix *ngIf="searchText" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
           <mat-icon matPrefix class="mr-2 text-gray-400">search</mat-icon>
         </mat-form-field>
         <table class="table-auto w-full">

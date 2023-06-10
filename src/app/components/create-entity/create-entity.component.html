@@ -29,13 +29,16 @@
 
       <div class="grid grid-cols-2 gap-4 mb-3">
         <mat-form-field class="w-full">
-          <mat-label>Especialidades</mat-label>
+          <mat-label>Especialidades (mínimo 5)</mat-label>
           <mat-select name="specialties" [(ngModel)]="entity.specialties" multiple required>
             <mat-option *ngFor="let specialty of specialtiesList" [value]="specialty.label">{{ specialty.label
               }}</mat-option>
           </mat-select>
-          <mat-error>Selecione pelo menos uma especialidade</mat-error>
+          <mat-error>
+            Selecione pelo menos 5 especialidades
+          </mat-error>
         </mat-form-field>
+
 
         <mat-form-field class="w-full">
           <mat-label>Região</mat-label>
@@ -64,10 +67,9 @@
 
       <div class="flex justify-end mt-4">
         <button mat-raised-button color="secondary" type="button" class="mr-6" routerLink="/home">Cancelar</button>
-        <button mat-raised-button color="primary" type="submit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!isFormValid()">
           {{ isEditMode ? 'Atualizar' : 'Criar' }}
         </button>
-
       </div>
     </form>
   </div>

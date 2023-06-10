@@ -6,6 +6,8 @@ import { EntityState, StoreEntity } from '../../state/entity/entity.state';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { SpecialtiesModalComponent } from 'src/app/specialties-modal/specialties-modal.component';
 
 @Component({
   selector: 'app-entity-view',
@@ -19,7 +21,8 @@ export class EntityViewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private store: Store,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -44,5 +47,19 @@ export class EntityViewComponent implements OnInit {
       .subscribe((data) => {
         this.store.dispatch(new StoreEntity(data));
       });
+  }
+
+  openSpecialtiesModal() {
+    this.entity$.subscribe((entity) => {
+      if (entity) {
+        this.dialog.open(SpecialtiesModalComponent, {
+          data: { specialties: entity.specialties },
+        });
+      }
+    });
+  }
+
+  getFormattedSpecialties(specialties: string[]): string {
+    return specialties.slice(0, 5).join(', ');
   }
 }

@@ -20,6 +20,8 @@ import { LoginComponent } from './components/login/login.component';
 import { CreateEntityModule } from './components/create-entity/create-entity.module';
 import { MenuModule } from './components/menu/menu.module';
 import { ToastComponent } from './components/toast/toast.component';
+import { SpecialtiesModalComponent } from './specialties-modal/specialties-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { ToastComponent } from './components/toast/toast.component';
     LoginComponent,
     ToastComponent,
     EntityViewComponent,
+    SpecialtiesModalComponent,
   ],
   imports: [
     MenuModule,
@@ -42,6 +45,7 @@ import { ToastComponent } from './components/toast/toast.component';
     AppRoutingModule,
     MatFormFieldModule,
     MatPaginatorModule,
+    MatDialogModule,
     ReactiveFormsModule,
     CreateEntityModule,
     NgxsModule.forRoot([EntityState]),

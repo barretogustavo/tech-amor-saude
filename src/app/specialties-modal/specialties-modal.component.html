@@ -1,0 +1,15 @@
+<div class="p-1">
+
+  <mat-dialog-content>
+    <h2 class="text-xl font-bold mb-4">Outras especialidades</h2>
+    <ul>
+      <li *ngFor="let specialty of otherSpecialties">{{ specialty }}</li>
+    </ul>
+  </mat-dialog-content>
+
+  <div class="w-full flex justify-end">
+    <mat-dialog-actions>
+      <button mat-button mat-dialog-close>Fechar</button>
+    </mat-dialog-actions>
+  </div>
+</div>

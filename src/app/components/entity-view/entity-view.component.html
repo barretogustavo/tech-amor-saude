@@ -24,8 +24,11 @@
           </div>
           <div>
             <strong>Especialidades:</strong>
-            <ul *ngFor="let specialty of entity.specialties">{{ specialty }}</ul>
+            <p>{{ getFormattedSpecialties(entity.specialties) }}... <a (click)="openSpecialtiesModal()"
+                class="text-blue-700 cursor-pointer font-semibold">+ Ver tudo</a></p>
+
           </div>
+
           <div>
             <strong>Região:</strong>
             <p>{{ entity?.region }}</p>

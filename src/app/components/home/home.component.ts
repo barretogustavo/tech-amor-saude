@@ -85,6 +85,11 @@ export class HomeComponent implements OnInit {
     }, 300);
   }
 
+  clearSearch() {
+    this.searchText = '';
+    this.searchUsers();
+  }
+
   onPageChange(event: PageEvent) {
     this.currentPage = event.pageIndex + 1;
     this.entitiesPerPage = event.pageSize;
