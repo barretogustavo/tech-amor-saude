@@ -5,6 +5,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Entity } from 'src/app/models';
 import { StoreEntity } from 'src/app/state/entity/entity.state';
 import { PageEvent } from '@angular/material/paginator';
+import { SpecialtiesModalComponent } from 'src/app/specialties-modal/specialties-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +28,8 @@ export class HomeComponent implements OnInit {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private http: HttpClient,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -122,5 +125,15 @@ export class HomeComponent implements OnInit {
     }
 
     this.fetchEntity();
+  }
+
+  openSpecialtiesModal(specialties: string[]) {
+    this.dialog.open(SpecialtiesModalComponent, {
+      data: { specialties: specialties },
+    });
+  }
+
+  getFormattedSpecialties(specialties: string[]): string {
+    return specialties.slice(0, 5).join(', ');
   }
 }

@@ -24,11 +24,10 @@
           </div>
           <div>
             <strong>Especialidades:</strong>
-            <p>{{ getFormattedSpecialties(entity.specialties) }}... <a (click)="openSpecialtiesModal()"
-                class="text-blue-700 cursor-pointer font-semibold">+ Ver tudo</a></p>
-
+            <p>{{ getFormattedSpecialties(entity.specialties) }} </p>
+            <button *ngIf="entity.specialties.length > 5" (click)="openSpecialtiesModal()"
+              class="text-blue-700 cursor-pointer font-semibold p-0">Ver mais</button>
           </div>
-
           <div>
             <strong>Região:</strong>
             <p>{{ entity?.region }}</p>

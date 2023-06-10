@@ -32,7 +32,7 @@
                   {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
                 </mat-icon>
               </th>
-              <th class="py-2 text-left cursor-pointer" (click)="onColumnHeaderClick('specialties')">
+              <th class="py-2 text-left cursor-pointer w-1/3" (click)="onColumnHeaderClick('specialties')">
                 Especialidades
                 <mat-icon class="ml-1 -mb-2 text-sm" *ngIf="sortColumn === 'specialties'">
                   {{ sortDirection === 'asc' ? 'arrow_upward' : 'arrow_downward' }}
@@ -52,8 +52,10 @@
               <td class="border px-4 py-2">{{ entityItem.companyName }}</td>
               <td class="border px-4 py-2">{{ entityItem.region }}</td>
               <td class="border px-4 py-2">
-                <ul *ngFor="let specialty of entityItem.specialties">
-                  {{ specialty }}
+                <ul>
+                  {{ getFormattedSpecialties(entityItem.specialties) }}<a *ngIf="entityItem.specialties.length > 5"
+                    (click)="openSpecialtiesModal(entityItem.specialties)"
+                    class="text-blue-700 cursor-pointer font-semibold">... + Ver mais</a>
                 </ul>
               </td>
               <td class="border px-4 py-2">{{ entityItem.isActive ? 'Sim' : 'Não' }}</td>

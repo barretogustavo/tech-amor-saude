@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { regionsList, specialtiesList } from 'src/app/helpers';
-import { Entity } from 'src/app/models';
+import { Entity, SelectItem } from 'src/app/models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
 import {
@@ -30,8 +29,8 @@ export class CreateEntityComponent {
   };
 
   isEditMode = false;
-  regionsList = regionsList;
-  specialtiesList = specialtiesList;
+  regionsList: SelectItem[] = [];
+  specialtiesList: SelectItem[] = [];
 
   constructor(
     private store: Store,
@@ -53,6 +52,31 @@ export class CreateEntityComponent {
         }
       }
     });
+
+    this.fetchSpecialtiesList();
+    this.fetchRegionList();
+  }
+
+  fetchSpecialtiesList() {
+    this.http.get<any[]>('http://localhost:3000/specialtiesList').subscribe(
+      (data) => {
+        this.specialtiesList = data;
+      },
+      (error) => {
+        console.error('Erro ao obter a lista de especialidades:', error);
+      }
+    );
+  }
+
+  fetchRegionList() {
+    this.http.get<any[]>('http://localhost:3000/regionsList').subscribe(
+      (data) => {
+        this.regionsList = data;
+      },
+      (error) => {
+        console.error('Erro ao obter a lista de regiões:', error);
+      }
+    );
   }
 
   formatCnpj() {
