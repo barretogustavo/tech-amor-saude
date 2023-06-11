@@ -22,9 +22,15 @@
       "companyName": "AmorSaude Rio de Janeiro",
       "corporateName": "AmorSaude RJ",
       "cnpj": "50.212.139/0001-77",
-      "specialties": ["Ortopedia", "Cardiologia"],
-      "region": "Sudeste",
-      "openingDate": "19/06/2022",
+      "specialties": [
+        "Cardiologia",
+        "Dermatologia",
+        "Ginecologia",
+        "Pediatria",
+        "Ortopedia"
+      ],
+      "region": "Alto tietê",
+      "openingDate": "2023-06-10T03:00:00.000Z",
       "isActive": true
     },
     {
@@ -32,10 +38,80 @@
       "companyName": "AmorSaude Pinheiros",
       "corporateName": "AmorSaude Pinheiros",
       "cnpj": "50.212.139/0001-78",
-      "specialties": ["Clinica Geral", "Pediatria"],
-      "region": "Sudeste",
-      "openingDate": "18/06/2021",
+      "specialties": [
+        "Cardiologia",
+        "Dermatologia",
+        "Ginecologia",
+        "Pediatria",
+        "Ortopedia"
+      ],
+      "region": "ES",
+      "openingDate": "2023-03-01T03:00:00.000Z",
       "isActive": false
+    },
+    {
+      "id": 2,
+      "companyName": "AmorSaude Teste A",
+      "corporateName": "AmorSaude Teste A",
+      "cnpj": "11.111.111/1111-11",
+      "specialties": [
+        "Radiologia",
+        "Endocrinologia",
+        "Urologia",
+        "Pneumologia",
+        "Nutrição"
+      ],
+      "region": "SP Interior",
+      "openingDate": "2023-06-01T03:00:00.000Z",
+      "isActive": false
+    },
+    {
+      "id": 3,
+      "companyName": "AmorSaude Teste B",
+      "corporateName": "AmorSaude Teste B",
+      "cnpj": "22.222.222/2222-22",
+      "specialties": [
+        "Cardiologia",
+        "Ortopedia",
+        "Psiquiatria",
+        "Pneumologia",
+        "Nutrição"
+      ],
+      "region": "NE1",
+      "openingDate": "2023-06-08T03:00:00.000Z",
+      "isActive": false
+    },
+    {
+      "id": 4,
+      "companyName": "AmorSaude Teste C",
+      "corporateName": "AmorSaude Teste C",
+      "cnpj": "33.333.333/3333-33",
+      "specialties": [
+        "Dermatologia",
+        "Pediatria",
+        "Ortopedia",
+        "Oftalmologia",
+        "Urologia"
+      ],
+      "region": "NE2",
+      "openingDate": "2023-06-01T03:00:00.000Z",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "companyName": "AmorSaude Teste D",
+      "corporateName": "AmorSaude Teste D",
+      "cnpj": "44.444.444/4444-44",
+      "specialties": [
+        "Dermatologia",
+        "Ortopedia",
+        "Pneumologia",
+        "Otorrinolaringologia",
+        "Nutrição"
+      ],
+      "region": "Norte",
+      "openingDate": "2023-04-07T03:00:00.000Z",
+      "isActive": true
     }
   ],
   "specialtiesList": [
