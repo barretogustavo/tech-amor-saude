@@ -1,33 +1,19 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Entity, SelectItem } from 'src/app/models';
-import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngxs/store';
-import {
-  StoreEntity,
-  UpdateEntity,
-  EntityState,
-} from 'src/app/state/entity/entity.state';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component } from '@angular/core';
+import { Entity, SelectItem } from 'src/app/models';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastComponent } from 'src/app/components/toast/toast.component';
+import { Router, ActivatedRoute } from '@angular/router';
+import { EntityState } from 'src/app/state/entity/entity.state';
+import { CreateEntityService } from './services/create-entity.service';
 import { ConfirmationModalComponent } from 'src/app/components/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-create-entity',
   templateUrl: './create-entity.component.html',
+  providers: [CreateEntityService],
 })
 export class CreateEntityComponent {
-  entity: Entity = {
-    id: 0,
-    companyName: '',
-    corporateName: '',
-    cnpj: '',
-    specialties: [],
-    region: '',
-    openingDate: '',
-    isActive: false,
-  };
+  entity: Entity = this.createEntity.getFormValue();
 
   isEditMode = false;
   regionsList: SelectItem[] = [];
@@ -36,122 +22,70 @@ export class CreateEntityComponent {
   constructor(
     private store: Store,
     private router: Router,
-    private http: HttpClient,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private snackBar: MatSnackBar
-  ) {}
+    public createEntity: CreateEntityService
+  ) {
+    this.route.url.subscribe({
+      next: (url) => {
+        this.isEditMode = url[0].path === 'edit';
+      },
+    });
+  }
 
   ngOnInit() {
-    this.route.url.subscribe((url) => {
-      this.isEditMode = url[url.length - 1].path === 'edit';
-      if (this.isEditMode) {
-        const entity = this.store.selectSnapshot(EntityState.getEntity);
-        if (entity) {
-          this.entity = { ...entity };
-        } else {
-          this.router.navigate(['/home']);
-        }
-      }
-    });
-
-    this.fetchSpecialtiesList();
+    this.checkEditMode();
     this.fetchRegionList();
+    this.fetchSpecialtiesList();
+  }
+
+  checkEditMode() {
+    if (this.isEditMode) {
+      const entity = this.store.selectSnapshot(EntityState.getEntity);
+      if (entity) {
+        this.createEntity.setFormValue({ ...entity });
+        this.entity = { ...this.createEntity.getFormValue() };
+      } else {
+        this.router.navigate(['/home']);
+      }
+    }
   }
 
   fetchSpecialtiesList() {
-    this.http.get<any[]>('http://localhost:3000/specialtiesList').subscribe(
-      (data) => {
+    this.createEntity.getSpecialtiesList().subscribe({
+      next: (data) => {
         this.specialtiesList = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao obter a lista de especialidades:', error);
-      }
-    );
+      },
+    });
   }
 
   fetchRegionList() {
-    this.http.get<any[]>('http://localhost:3000/regionsList').subscribe(
-      (data) => {
+    this.createEntity.getRegionList().subscribe({
+      next: (data) => {
         this.regionsList = data;
       },
-      (error) => {
+      error: (error) => {
         console.error('Erro ao obter a lista de regiões:', error);
-      }
-    );
+      },
+    });
   }
 
   formatCnpj() {
-    let cnpj = this.entity.cnpj.replace(/\D/g, '');
+    const cnpjControl = this.createEntity.form.get('cnpj');
+    if (cnpjControl && cnpjControl.value) {
+      let cnpj = cnpjControl.value.replace(/\D/g, '');
 
-    if (cnpj.length <= 14) {
-      cnpj = cnpj.replace(
-        /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
-        '$1.$2.$3/$4-$5'
-      );
-    }
-
-    this.entity.cnpj = cnpj;
-  }
-
-  isFormValid(): boolean {
-    const { cnpj, openingDate, companyName, corporateName, specialties } =
-      this.entity;
-
-    return !!(
-      cnpj &&
-      openingDate &&
-      companyName &&
-      corporateName &&
-      specialties.length >= 5
-    );
-  }
-
-  submitForm() {
-    if (this.isFormValid()) {
-      const url = this.isEditMode
-        ? `http://localhost:3000/entity/${this.entity.id}`
-        : 'http://localhost:3000/entity';
-
-      this.http
-        .request(this.isEditMode ? 'PUT' : 'POST', url, { body: this.entity })
-        .subscribe(
-          () => {
-            const message = this.isEditMode
-              ? 'Entidade atualizada com sucesso!'
-              : 'Entidade criada com sucesso!';
-
-            this.snackBar.openFromComponent(ToastComponent, {
-              duration: 3000,
-              data: { message },
-            });
-
-            if (this.isEditMode) {
-              this.store.dispatch(new UpdateEntity(this.entity));
-            } else {
-              this.store.dispatch(new StoreEntity(this.entity));
-            }
-
-            this.router.navigate(['/entity']);
-          },
-          (error) => {
-            const errorMessage = this.isEditMode
-              ? 'Erro ao tentar atualizar a entidade'
-              : 'Erro ao tentar criar a entidade';
-
-            this.snackBar.openFromComponent(ToastComponent, {
-              duration: 3000,
-              data: { message: `${errorMessage}: ${error.message}` },
-            });
-          }
+      if (cnpj.length === 14) {
+        cnpj = cnpj.replace(
+          /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/,
+          '$1.$2.$3/$4-$5'
         );
-    } else {
-      this.snackBar.openFromComponent(ToastComponent, {
-        duration: 3000,
-        data: {
-          message: 'Formulário inválido. Preencha todos os campos.',
-        },
-      });
+      }
+
+      cnpjControl.setValue(cnpj);
     }
   }
 
@@ -162,31 +96,8 @@ export class CreateEntityComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.deleteEntity(id);
+        this.createEntity.deleteEntity(id);
       }
     });
-  }
-
-  deleteEntity(id: number) {
-    this.http.delete(`http://localhost:3000/entity/${id}`).subscribe(
-      () => {
-        this.snackBar.openFromComponent(ToastComponent, {
-          duration: 3000,
-          data: {
-            message: 'Entidade excluída com sucesso!',
-          },
-        });
-
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        this.snackBar.openFromComponent(ToastComponent, {
-          duration: 3000,
-          data: {
-            message: `Erro ao tentar excluir a entidade: ${error.message}`,
-          },
-        });
-      }
-    );
   }
 }

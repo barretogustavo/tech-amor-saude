@@ -1,3 +1,13 @@
+export interface Login {
+  id?: string;
+  username: string;
+  password: string;
+}
+
+export interface Token {
+  token: string;
+}
+
 export interface UserData {
   id: number;
   name: string;

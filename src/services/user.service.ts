@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UserData } from 'src/app/models';
+import { Token, UserData } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +9,7 @@ import { UserData } from 'src/app/models';
 export class UserService {
   public isAuthenticated: boolean;
   public userData: UserData | null;
+  public token: Token | null;
 
   constructor(private http: HttpClient) {
     this.isAuthenticated = false;
@@ -31,9 +32,9 @@ export class UserService {
     return this.userData;
   }
 
-  getUserDataByUsername(username: string): Observable<UserData> {
+  getUserDataByUsername(token: string): Observable<UserData> {
     return this.http.get<UserData>(
-      `http://localhost:3000/users?username=${username}`
+      `http://localhost:3000/users?token=${token}`
     );
   }
 }

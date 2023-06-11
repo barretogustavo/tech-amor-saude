@@ -4,13 +4,15 @@
       "id": 1,
       "name": "Gustavo Barreto",
       "username": "barreto@email.com",
-      "password": "barreto123"
+      "password": "barreto123",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ikd1c3Rhdm8gQmFycmV0byIsInVzZXJuYW1lIjoiYmFycmV0b0BlbWFpbC5jb20iLCJpYXQiOjE2ODY0MjIyMTh9.bGizRYF2qlbevHrjY43YZ-8A3UmoZDf7PcjJHqIWQ74"
     },
     {
       "id": 2,
       "name": "Felipe Belarmino",
       "username": "belarmino@email.com",
-      "password": "belarmino123"
+      "password": "belarmino123",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkZlbGlwZSBCZWxhcm1pbm8iLCJ1c2VybmFtZSI6ImJlbGFybWlub0BlbWFpbC5jb20iLCJpYXQiOjE2ODY0MjIyMTh9.OtwcFhXSmgCv4zKCDWKpUg1NnTqKLM1ZGnFyuwSvgBU"
     }
   ],
   "auth": [],

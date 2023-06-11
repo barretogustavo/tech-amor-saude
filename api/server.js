@@ -15,7 +15,7 @@ const authenticateUser = (req, res, next) => {
 
   if (user) {
     db.auth.push(user);
-    return next();
+    return res.status(201).json({token: user.token});
   }
 
   return res.status(401).json({ error: 'Usuário não autenticado' });

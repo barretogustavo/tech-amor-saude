@@ -2,12 +2,13 @@
   <img src="https://www.amorsaude.com.br/wp-content/themes/amorsaude/assets/images/amorsaude-logo.svg" alt="Logo"
     class="h-16 mb-4">
   <mat-card class="w-full md:w-96 p-6">
-    <div *ngIf="submitted && error" class="my-1 text-red-500">{{ error }}</div>
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div *ngIf="loginService.submitted && error" class="my-1 text-red-500">{{ error }}</div>
+    <form [formGroup]="loginService.form">
       <mat-form-field appearance="fill" class="w-full">
         <mat-label>Usuário</mat-label>
         <input matInput type="email" formControlName="username" placeholder="Usuário">
-        <mat-error *ngIf="submitted && loginForm.controls['username'].hasError('required')">Por favor, digite seu
+        <mat-error *ngIf="loginService.submitted && loginService.form.controls['username'].invalid">Por favor, digite
+          seu
           usuário (e-mail de cadastro)</mat-error>
       </mat-form-field>
       <mat-form-field appearance="fill" class="w-full">
@@ -16,10 +17,11 @@
         <button mat-icon-button color="primary" matSuffix type="button" (click)="togglePasswordVisibility()">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="submitted && loginForm.controls['password'].hasError('required')">Digite uma senha</mat-error>
+        <mat-error *ngIf="loginService.submitted && loginService.form.controls['password'].invalid">Digite uma
+          senha</mat-error>
       </mat-form-field>
       <div class="flex justify-end">
-        <button mat-raised-button color="primary" type="submit">Login</button>
+        <button mat-raised-button color="primary" (click)="submit()">Login</button>
       </div>
     </form>
   </mat-card>

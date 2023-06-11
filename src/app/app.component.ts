@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/services/user.service';
+import { UserData } from './models';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +9,20 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
-    const userData = localStorage.getItem('userData');
+    const token = localStorage.getItem('token');
 
-    if (userData) {
+    if (token) {
       this.userService.setAuthenticated(true);
-      this.userService.setUserData(JSON.parse(userData));
+      this.userService
+        .getUserDataByUsername(token)
+        .subscribe((userData: UserData) => {
+          this.userService.setUserData(userData);
+        });
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 }

@@ -12,7 +12,7 @@ export class MenuComponent {
   logout() {
     this.userService.setAuthenticated(false);
     this.userService.setUserData(null);
-    localStorage.removeItem('userData');
+    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 }
