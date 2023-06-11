@@ -24,7 +24,7 @@ export class CreateEntityService {
 
   buildForm() {
     return this.fb.group({
-      id: [null, Validators.required],
+      id: [null],
       companyName: [null, Validators.required],
       corporateName: [null, Validators.required],
       cnpj: [null, Validators.required],
